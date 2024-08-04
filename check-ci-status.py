@@ -65,7 +65,12 @@ def run(htmlp=False):
                     url = compl_info['url']
                     started = datetime.datetime.fromtimestamp(round(compl_info['timestamp']/1000.0))
                     took = datetime.timedelta(milliseconds=round(compl_info['duration']/1000.0)*1000)
-                    result = compl_info['result']
+                    result = compl_info['result'] or 'still running'
+                    if compl_info['duration'] == 0:
+                        elapsed = datetime.datetime.now() - started
+                        rounded = round(elapsed.total_seconds()/60.0)*60
+                        elapsed = datetime.timedelta(seconds=rounded)
+                        took = f"{elapsed} (so far)"
                     if htmlp:
                         style=None
                         if result == 'SUCCESS':
