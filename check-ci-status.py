@@ -46,7 +46,7 @@ def init_servers(servers):
     for server in servers:
         with open(os.path.expanduser(f"~/{server['passwordfile']}")) as f:
             user,password = f.readlines()[0].rstrip().split(':')
-            server['connection'] = jenkins.Jenkins(server['host'],
+            server['connection'] = jenkins.Jenkins(server['host'], timeout=60,
                                                    username=user,
                                                    password=password)
     return servers
