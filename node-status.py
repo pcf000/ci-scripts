@@ -58,8 +58,7 @@ def nodes_with_labels(server, labels):
         name = n['name']
         try:
             info = server.get_node_info(name, depth=2)
-        except jenkins.JenkinsException as e:
-            print(e)
+        except jenkins.JenkinsException:
             continue
         node_labels = [x['name'] for x in info['assignedLabels'] if x['name'] != name]
         second = None
