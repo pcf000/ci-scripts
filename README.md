@@ -13,3 +13,8 @@ connect to the Jenkins server at, eg,
 http://ml-ci.amd.com:21096/me/configure (or take the long route of
 clicking on your name at the upper right and then Configure in the
 left-side menu).
+
+Do "python3 -m pip install -r requirements.txt" for the essential
+prerequisites -- python\_jenkins is the jenkins module, tabulate is used
+for text output, and dominate is used for html output.  Python\_jenkins
+does drag in a bunch of other modules.
