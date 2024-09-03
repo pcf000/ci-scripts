@@ -4,7 +4,7 @@ to authenticate.
 
 They look for the files .jenkins.ml-ci and .jenkins.ml-ci-internal in
 the home directory.  (Those can be changed -- see the 'servers' variable
-and 'init_servers' function in the files.)  The file is expected to
+and 'init_servers' function in servers.py.)  The file is expected to
 contain "username:password".
 
 To avoid putting one's main password in a file, it's best to make an API
