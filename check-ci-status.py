@@ -7,6 +7,7 @@ import contextlib
 import jenkins
 import dominate
 import dominate.tags as dt
+from servers import servers, init_servers
 
 def build_status(server, buildName):
     job_info = server.get_job_info(buildName)
@@ -29,27 +30,8 @@ def failed_stages(server, buildName, howMany=50):
         stages = server.get_build_stages(buildName, job)
         failing = [stage for stage in stages['stages'] if stage['status'] == 'FAILED' and stage['name'] != 'Environment']
         if failing:
+            print(failing[0])
             print(str(job)+" : ", ', '.join([stage['name'] for stage in failing][0:1]))
-
-
-servers = [{'host' : 'http://ml-ci.amd.com:21096',
-            'passwordfile' : '.jenkins.ml-ci',
-            'builds' : [('MLIR/check-mlir-nightly-all', 'non-xdlops nightly'),
-                        ('MLIR/mlir-weekly', 'non-xdlops weekly')]},
-           {'host' : 'http://ml-ci-internal.amd.com:8080',
-            'passwordfile' : '.jenkins.ml-ci-internal',
-            'builds' : [('mlir/mlir-nightly-all', 'xdlops nightly'),
-                        ('mlir/mlir-weekly', 'xdlops weekly')]}
-]
-
-def init_servers(servers):
-    for server in servers:
-        with open(os.path.expanduser(f"~/{server['passwordfile']}")) as f:
-            user,password = f.readlines()[0].rstrip().split(':')
-            server['connection'] = jenkins.Jenkins(server['host'], timeout=60,
-                                                   username=user,
-                                                   password=password)
-    return servers
 
 def run(htmlp=False):
     if htmlp:
