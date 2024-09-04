@@ -18,3 +18,8 @@ Do "python3 -m pip install -r requirements.txt" for the essential
 prerequisites -- python\_jenkins is the jenkins module, tabulate is used
 for text output, and dominate is used for html output.  Python\_jenkins
 does drag in a bunch of other modules.
+
+check-ci-status.py reports the latest nightly and weekly results.
+node-status.py lists our Jenkins nodes and what state they're in.
+mlir-nodes.py predates node-status.py and formats differently.
+servers.py is the common setup code.
